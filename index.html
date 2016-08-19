@@ -14,16 +14,23 @@
 </head>
 <body>
 
-<article>
+<article class="wrapper">
     <header><h1>Stopwatch</h1></header>
-    <section>
-        <label for="timerName">Name</label>
-        <input required type="text" id="timerName" class="js-timer-name">
-        <button class="js-add-timer">Add</button>
+    <section class="add-timer-wrapper">
+        <div class="floating-placeholder">
+            <input required type="text" id="timerName" class="js-timer-name">
+            <label for="timerName">Name</label>
+        </div>
+        <div class="floating-placeholder">
+            <input required type="url" id="timerLink" class="js-timer-link">
+            <label for="timerLink">Link</label>
+        </div>
+
+        <button class="floating-button js-add-timer">Add</button>
     </section>
     <section class="timers">
-        <ul class="js-timer-list">
-        </ul>
+        <list class="timer-list js-timer-list">
+        </list>
     </section>
 </article>
 

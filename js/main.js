@@ -8,6 +8,9 @@ var myTimers = {
         myTimers.addTimerButton();
         myTimers.toggleTimerButton();
         myTimers.removeTimerButton();
+
+        $('.floating-placeholder input').keydown(myTimers.updateText);
+        $('.floating-placeholder input').change(myTimers.updateText);
     },
 
     loadTimers: function() {
@@ -62,13 +65,15 @@ var myTimers = {
             if (myTimers.timers[id].timer.started) {
                 myTimers.timers[id].timer.stop();
                 $this.text('start');
+                $this.removeClass('pause').addClass('start');
                 myTimers.saveTimers();
 
                 return;
             }
 
             myTimers.timers[id].timer.start();
-            $this.text('stop');
+            $this.text('pause');
+            $this.removeClass('start').addClass('pause');
             myTimers.saveTimers();
         });
     },
@@ -101,27 +106,28 @@ var myTimers = {
             return;
         }
 
-        $timer = $('<div class="js-timer"></div>');
+        $timer = $('<div class="js-timer timer-list-item"></div>');
         $timer.attr('data-timer-id', timer.id);
 
         var $timerTitle = $('<h3 class="timer-title"></h3>');
         $timerTitle.html(myTimers.timerToHtml(timer));
         $timerTitle.appendTo($timer);
 
-        var $timerButton = $('<button class="start js-toggle-timer">start</button>');
+        var $timerButton = $('<button class="btn-toggle start js-toggle-timer">start</button>');
         $timerButton.appendTo($timer);
 
-        var $removeButton = $('<button class="remove js-remove-timer">remove</button>');
+        var $removeButton = $('<button class="btn-remove js-remove-timer">remove</button>');
         $removeButton.appendTo($timer);
 
         $timer.appendTo($('.js-timer-list'));
     },
 
     timerToHtml: function(timer) {
-        return timer.name + ': <span class="js-timer-elapsed">'
-            + '<span class="js-timer-elapsed-hours">' + myTimers.zeroFill(timer.elapsed.hours, 2) + '</span>:'
-            + '<span class="js-timer-elapsed-minutes">' + myTimers.zeroFill(timer.elapsed.minutes, 2) + '</span>:'
-            + '<span class="js-timer-elapsed-seconds">' + myTimers.zeroFill(timer.elapsed.seconds, 2) + '</span>'
+        return '<span class="timer-name">' + timer.name + '</span>'
+            + '<span class="js-timer-elapsed timer-time">'
+                + '<span class="js-timer-elapsed-hours">' + myTimers.zeroFill(timer.elapsed.hours, 2) + '</span>:'
+                + '<span class="js-timer-elapsed-minutes">' + myTimers.zeroFill(timer.elapsed.minutes, 2) + '</span>:'
+                + '<span class="js-timer-elapsed-seconds">' + myTimers.zeroFill(timer.elapsed.seconds, 2) + '</span>'
             + '</span>'
     },
 
@@ -139,6 +145,19 @@ var myTimers = {
 
         myTimers.displayTimer(myTimers.timers[stopwatch.id]);
         myTimers.saveTimers();
+    },
+
+    updateText: function(event) {
+        var input = $(this);
+        setTimeout(function() {
+            var val = input.val();
+            if (val != "") {
+                input.parent().addClass("floating-placeholder-float");
+            }
+            else {
+                input.parent().removeClass("floating-placeholder-float");
+            }
+        }, 1)
     }
 };
 
