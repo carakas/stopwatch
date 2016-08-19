@@ -1,32 +1,30 @@
 {
-  "name": "electron-quick-start",
+  "name": "carakas-stopwatch",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A stopwatch application that can have multiple stopwatches running at the same time with the option to pause",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+git@github.com:carakas/stopwatch.git"
   },
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "stopwatch",
+    "multiple"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "JustCarakas",
+  "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+    "url": "https://github.com/carakas/stopwatch/issues"
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "homepage": "https://github.com/carakas/stopwatch",
   "devDependencies": {
     "electron-prebuilt": "^1.2.0"
   },
   "dependencies": {
-    "electron-builder": "^5.26.0",
-    "electron-open-link-in-browser": "^1.0.2"
+    "electron-builder": "^5.26.0"
   }
 }
