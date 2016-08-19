@@ -1,3 +1,5 @@
+window.$ = window.jQuery = require('./vendor/jquery-1.12.0.min');
+
 var myTimers = {
     timers: {},
 

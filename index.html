@@ -1,40 +1,32 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Stopwatch</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/stopwatch.css">
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
-    </head>
-    <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+<article>
+    <header><h1>Stopwatch</h1></header>
+    <section>
+        <label for="timerName">Name</label>
+        <input required type="text" id="timerName" class="js-timer-name">
+        <button class="js-add-timer">Add</button>
+    </section>
+    <section class="timers">
+        <ul class="js-timer-list">
+        </ul>
+    </section>
+</article>
 
-        <article>
-            <header>Timers</header>
-            <section>
-                <label for="timerName">Name</label>
-                <input required type="text" id="timerName" class="js-timer-name">
-                <button class="js-add-timer">Add</button>
-            </section>
-            <section class="timers">
-                <ul class="js-timer-list">
-                </ul>
-            </section>
-        </article>
-
-        <script src="js/vendor/stopwatch.js"></script>
-        <script src="js/vendor/jquery-1.12.0.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+<script>require('./renderer.js')</script>
+</body>
 </html>

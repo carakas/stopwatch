@@ -1,0 +1,14 @@
+body {
+    background-color: #3498db;
+}
+
+header {
+    background-color: #2980b9;
+}
+
+header h1 {
+    margin-top: 0;
+    line-height: 2em;
+    text-align: center;
+    color: #34495e;
+}
