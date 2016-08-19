@@ -1,3 +1,4 @@
+window.electronOpenLinkInBrowser = require('../node_modules/electron-open-link-in-browser/build/electron-open-link-in-browser.js');
 window.$ = window.jQuery = require('./vendor/jquery-1.12.0.min');
 
 var myTimers = {
@@ -8,9 +9,18 @@ var myTimers = {
         myTimers.addTimerButton();
         myTimers.toggleTimerButton();
         myTimers.removeTimerButton();
+        myTimers.timerLink();
 
         $('.floating-placeholder input').keydown(myTimers.updateText);
         $('.floating-placeholder input').change(myTimers.updateText);
+    },
+
+    timerLink: function() {
+        $('.js-timer-list').on('click', 'a.timer-name', function(e) {
+            e.preventDefault();
+
+            require('electron').shell.openExternal(this.href);
+        })
     },
 
     loadTimers: function() {
@@ -33,13 +43,20 @@ var myTimers = {
 
     addTimerButton: function() {
         $('.js-add-timer').on('click', function() {
-            var $timerInput = $('.js-timer-name');
-            if ($timerInput.val().length === 0) {
+            var $timerName = $('.js-timer-name');
+            var $timerLink = $('.js-timer-link');
+
+            if ($timerName.val().length === 0) {
                 return;
             }
 
-            myTimers.addTimer($timerInput.val());
-            $timerInput.val('');
+            myTimers.addTimer($timerName.val(), $timerLink.val());
+
+            $timerName.val('');
+            $timerLink.val('');
+
+            $timerName.trigger('change');
+            $timerLink.trigger('change');
         });
     },
 
@@ -78,11 +95,12 @@ var myTimers = {
         });
     },
 
-    addTimer: function(name) {
+    addTimer: function(name, link) {
         var id = Date.now();
         var timer = {
             id: id,
             name: name,
+            link: link,
             elapsed: {
                 hours: 0,
                 minutes: 0,
@@ -123,7 +141,12 @@ var myTimers = {
     },
 
     timerToHtml: function(timer) {
-        return '<span class="timer-name">' + timer.name + '</span>'
+        var name = '<span class="timer-name">' + timer.name + '</span>';
+        if (timer.link.length > 0) {
+            name = '<a class="timer-name js-timer-link" href="' + timer.link + '">' + timer.name + '</a>';
+        }
+
+        return name
             + '<span class="js-timer-elapsed timer-time">'
                 + '<span class="js-timer-elapsed-hours">' + myTimers.zeroFill(timer.elapsed.hours, 2) + '</span>:'
                 + '<span class="js-timer-elapsed-minutes">' + myTimers.zeroFill(timer.elapsed.minutes, 2) + '</span>:'
@@ -147,7 +170,7 @@ var myTimers = {
         myTimers.saveTimers();
     },
 
-    updateText: function(event) {
+    updateText: function() {
         var input = $(this);
         setTimeout(function() {
             var val = input.val();
